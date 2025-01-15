@@ -21,8 +21,38 @@ class AssetFlare extends AssetProvider {
     required this.name,
   });
 
+
+  /*
+  hashValues to change Object.hash 
+
+  Flutter update version error : 
+  You are applying Flutter's main Gradle plugin imperatively using the apply script method, which is deprecated and will be removed in a future release. Migrate to applying Gradle plugins with the declarative plugins block: https://flutter.dev/to/flutter-gradle-plugin-apply
+
+  /C:/Users/Mobile%20Apps/AppData/Local/Pub/Cache/hosted/pub.dev/flare_flutter-3.0.2/lib/provider/asset_flare.dart:25:23: Error: The method 'hashValues' isn't defined for the class 'AssetFlare'.
+   - 'AssetFlare' is from 'package:flare_flutter/provider/asset_flare.dart' ('/C:/Users/Mobile%20Apps/AppData/Local/Pub/Cache/hosted/pub.dev/flare_flutter-3.0.2/lib/provider/asset_flare.dart').
+  Try correcting the name to the name of an existing method, or defining a method named 'hashValues'.
+    int get hashCode => hashValues(bundle, name);
+                        ^^^^^^^^^^
+  Target kernel_snapshot_program failed: Exception
+  2
+  
+  FAILURE: Build failed with an exception.
+  
+  * What went wrong:
+  Execution failed for task ':app:compileFlutterBuildDebug'.
+  > Process 'command 'C:\flutter\flutter\bin\flutter.bat'' finished with non-zero exit value 1
+
+
+  I solved this error : Change one line : 
+   Old line : int get hashCode => hashValues(bundle, name);
+   New line : int get hashCode => Object.hash(bundle, name);
+
+   Work for me .....
+    
+  
+  */
   @override
-  int get hashCode => hashValues(bundle, name);
+  int get hashCode => Object.hash(bundle, name);
 
   @override
   bool operator ==(dynamic other) {
